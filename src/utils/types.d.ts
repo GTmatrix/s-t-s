@@ -46,8 +46,3 @@ export interface IContext {
     changePage: (target: string) => void;
     changeHero: (heroId: HeroId) => void;
 }
-
-export interface StoredHeroData {
-    payload: HeroInfo;
-    timestamp: number;
-}
