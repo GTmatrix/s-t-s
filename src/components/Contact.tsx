@@ -1,14 +1,13 @@
-import {useEffect, useState} from "react";
-import {base_url, period_month} from "../utils/constants.ts";
+import { useEffect, useState } from "react";
+import { base_url, period_month } from "../utils/constants.ts";
 
 const Contact = () => {
     const [planets, setPlanets] = useState<string[]>(() => {
-        const planets = JSON.parse(localStorage.getItem('planets')!);
-        if (planets && ((Date.now() - planets.time) < period_month)) {
+        const planets = JSON.parse(localStorage.getItem("planets")!);
+        if (planets && Date.now() - planets.time < period_month) {
             return planets.payload;
-        } else {
-            return ['wait...']
         }
+        return ["Loading..."];
     });
 
     useEffect(() => {
@@ -16,50 +15,116 @@ const Contact = () => {
             const res = await fetch(`${base_url}/v1/planets`);
             const data: { name: string }[] = await res.json();
             const planets = data.map(item => item.name);
+
             setPlanets(planets);
-            localStorage.setItem('planets', JSON.stringify({
-                payload: planets,
-                time: Date.now()
-            }));
-        }
+            localStorage.setItem(
+                "planets",
+                JSON.stringify({ payload: planets, time: Date.now() })
+            );
+        };
 
         if (planets.length === 1) {
-            getPlanets().then(() => console.log('Planets were loaded'));
+            getPlanets();
         }
-    }, [planets.length])
+    }, [planets.length]);
 
     return (
-        <form className={`w-4/5 my-0 mx-auto rounded-[5px] bg-[#f2f2f2] p-5`} onSubmit={(e) => {
-            e.preventDefault();
-        }}>
-            <label className={`w-full text-red`}>First Name
-                <input className={`text-black border w-full p-3 border-[#ccc] rounded-[4px] mt-1.5 mb-4 resize-y`}
-                       type="text"
-                       name="firstname" placeholder="Your first name..."/>
+        <form
+            className="
+                w-4/5 mx-auto mt-10 p-6 rounded-xl
+                bg-transparent
+                border-2 border-main shadow-hero
+                backdrop-blur-sm
+                text-main tracking-wide
+            "
+            onSubmit={(e) => e.preventDefault()}
+        >
+            {/* First Name */}
+            <label className="block mb-5">
+                <span className="text-red text-lg">First Name</span>
+                <input
+                    className="
+                        w-full mt-2 p-3 rounded-md
+                        text-black
+                        bg-white/80
+                        border border-main
+                        focus:outline-none focus:ring-2 focus:ring-main
+                    "
+                    type="text"
+                    name="firstname"
+                    placeholder="Your first name..."
+                />
             </label>
-            <label className={`w-full text-red`}>Last Name
-                <input className={`text-black border w-full p-3 border-[#ccc] rounded-[4px] mt-1.5 mb-4 resize-y`}
-                       type="text"
-                       name="lastname" placeholder="Your last name..."/>
+
+            {/* Last Name */}
+            <label className="block mb-5">
+                <span className="text-red text-lg">Last Name</span>
+                <input
+                    className="
+                        w-full mt-2 p-3 rounded-md
+                        text-black
+                        bg-white/80
+                        border border-main
+                        focus:outline-none focus:ring-2 focus:ring-main
+                    "
+                    type="text"
+                    name="lastname"
+                    placeholder="Your last name..."
+                />
             </label>
-            <label className={`w-full text-red`}>Planet
-                <select className={`border w-full text-black p-3 border-[#ccc] rounded-[4px] mt-1.5 mb-4 resize-y`}
-                        name="planet">{
-                    planets.map(item => <option value={item} key={item}>{item}</option>)
-                }
+
+            {/* Planet */}
+            <label className="block mb-5">
+                <span className="text-red text-lg">Planet</span>
+                <select
+                    className="
+                        w-full mt-2 p-3 rounded-md
+                        text-black
+                        bg-white/80
+                        border border-main
+                        focus:outline-none focus:ring-2 focus:ring-main
+                    "
+                    name="planet"
+                >
+                    {planets.map((item) => (
+                        <option key={item} value={item}>
+                            {item}
+                        </option>
+                    ))}
                 </select>
             </label>
-            <label className={`w-full text-red`}>Subject
+
+            {/* Subject */}
+            <label className="block mb-5">
+                <span className="text-red text-lg">Subject</span>
                 <textarea
-                    className={`text-black border h-52 w-full p-3 border-[#ccc] rounded-[4px] mt-1.5 mb-4 resize-y`}
-                    name="subject" placeholder="Write something..."/>
+                    className="
+                        w-full mt-2 h-52 p-3 rounded-md
+                        text-black
+                        bg-white/80
+                        border border-main
+                        resize-y
+                        focus:outline-none focus:ring-2 focus:ring-main
+                    "
+                    name="subject"
+                    placeholder="Write something..."
+                />
             </label>
+
+            {/* Submit */}
             <button
-                className={`bg-[#4CAF50] text-white py-3 px-5 border-none rounded-[4px] cursor-pointer hover:bg-[#45a049]`}
-                type="submit">Submit
+                className="
+                    w-full py-3 rounded-md
+                    bg-main text-black font-bold tracking-wider
+                    hover:bg-[#fff799] transition-all
+                    shadow-hero cursor-pointer
+                "
+                type="submit"
+            >
+                SUBMIT
             </button>
         </form>
-    )
-}
+    );
+};
 
 export default Contact;
