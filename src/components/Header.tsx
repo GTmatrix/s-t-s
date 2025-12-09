@@ -1,11 +1,11 @@
 import React from 'react';
 import Navigation from "./Navigation.tsx";
-import { useParams } from 'react-router-dom';
-import { characters } from '../utils/constants.ts';
+import {useParams} from 'react-router-dom';
+import {characters} from '../utils/constants.ts';
 import type {HeroId} from '../utils/types.ts';
 
 const Header: React.FC = () => {
-    const { heroId = 'luke' } = useParams<{ heroId?: string }>();
+    const {heroId = 'luke'} = useParams<{ heroId?: string }>();
     const isHeroValid = Object.prototype.hasOwnProperty.call(characters, heroId);
     const heroKey: HeroId = isHeroValid ? (heroId as HeroId) : 'luke';
 

@@ -1,8 +1,7 @@
+import * as React from "react";
 import {createContext} from "react";
 import {navItems} from "./constants.ts";
-import type {SWContextValue} from "./types";
-import type {IContext} from "./types";
-import * as React from "react";
+import type {IContext, SWContextValue} from "./types";
 
 export const SWContext = createContext<SWContextValue>({
     page: navItems[0],

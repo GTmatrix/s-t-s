@@ -1,6 +1,6 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { characters, navItems } from '../utils/constants.ts';
+import {useNavigate} from 'react-router-dom';
+import {characters, navItems} from '../utils/constants.ts';
 import type {FriendProps, HeroId} from '../utils/types.ts';
 
 const Friend: React.FC<FriendProps> = ({friend, pos}) => {

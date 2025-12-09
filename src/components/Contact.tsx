@@ -14,7 +14,7 @@ const Contact = () => {
     useEffect(() => {
         const getPlanets = async () => {
             const res = await fetch(`${base_url}/v1/planets`);
-            const data: {name: string}[] = await res.json();
+            const data: { name: string }[] = await res.json();
             const planets = data.map(item => item.name);
             setPlanets(planets);
             localStorage.setItem('planets', JSON.stringify({
@@ -23,7 +23,7 @@ const Contact = () => {
             }));
         }
 
-        if (planets.length === 1){
+        if (planets.length === 1) {
             getPlanets().then(() => console.log('Planets were loaded'));
         }
     }, [planets.length])

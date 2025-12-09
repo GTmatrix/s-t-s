@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { period_month, characters, navItems } from "../utils/constants.ts";
+import React, {useEffect, useState} from "react";
+import {useNavigate, useParams} from "react-router-dom";
+import {characters, navItems, period_month} from "../utils/constants.ts";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
-import { type HeroId, type HeroInfo } from "../utils/types.d.ts";
+import {type HeroId, type HeroInfo} from "../utils/types.d.ts";
 
 interface LocalStorageHeroData {
     payload: HeroInfo;
@@ -13,7 +13,7 @@ interface LocalStorageHeroData {
 
 const AboutMe: React.FC = () => {
     const navigate = useNavigate();
-    const { heroId: urlHeroId } = useParams<{ heroId?: string }>();
+    const {heroId: urlHeroId} = useParams<{ heroId?: string }>();
 
     const heroKey: string = urlHeroId || 'luke';
     const isValidHeroKey = Object.prototype.hasOwnProperty.call(characters, heroKey);
@@ -68,7 +68,7 @@ const AboutMe: React.FC = () => {
                     skin_color: data.skin_color,
                     eye_color: data.eye_color
                 };
-                const dataToStore: LocalStorageHeroData = { payload: info, timestamp: Date.now() };
+                const dataToStore: LocalStorageHeroData = {payload: info, timestamp: Date.now()};
                 localStorage.setItem(validHeroId, JSON.stringify(dataToStore));
                 setHero(info);
                 setLoading(false);

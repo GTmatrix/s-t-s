@@ -2,6 +2,7 @@ export interface SWContextValue {
     page: string;
     changePage: (page: string) => void;
 }
+
 export interface HeroInfo {
     name: string;
     gender: string;
@@ -12,19 +13,34 @@ export interface HeroInfo {
     skin_color: string;
     eye_color: string;
 }
+
 export interface CharacterDetails {
     name: string;
     img: string;
     url: string;
 }
+
 export interface NavItemProps {
     itemTitle: string;
 }
+
 export interface FriendProps {
     friend: string;
     pos: number;
 }
-export type HeroId = 'luke' | 'c3po' | 'r2d2' | 'leia' | 'obi_wan' | 'chewbacca' | 'han_solo' | 'yoda' | 'ewok' | 'falcon';
+
+export type HeroId =
+    'luke'
+    | 'c3po'
+    | 'r2d2'
+    | 'leia'
+    | 'obi_wan'
+    | 'chewbacca'
+    | 'han_solo'
+    | 'yoda'
+    | 'ewok'
+    | 'falcon';
+
 export interface IContext {
     currentHeroId: HeroId;
     changePage: (target: string) => void;
