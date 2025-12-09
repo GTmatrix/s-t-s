@@ -11,7 +11,3 @@ createRoot(document.getElementById('root')!).render(
         </BrowserRouter>
     </StrictMode>,
 )
-
-//TODO Fix ts error  in AboutMe
-//TODO If wrong character - default to error page
-//TODO Header name should be as characters name in about me page!

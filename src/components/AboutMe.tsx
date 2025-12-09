@@ -4,7 +4,6 @@ import {characters, navItems, period_month} from "../utils/constants.ts";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 import {type HeroId, type HeroInfo} from "../utils/types.d.ts";
-
 interface LocalStorageHeroData {
     payload: HeroInfo;
     timestamp: number;
