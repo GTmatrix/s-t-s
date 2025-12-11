@@ -1,15 +1,30 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Navigation from "./Navigation.tsx";
-import {useParams} from 'react-router-dom';
+import {useParams, useLocation} from 'react-router-dom';
 import {characters} from '../utils/constants.ts';
-import type {HeroId} from '../utils/types.ts';
+import type {HeroId} from '../utils/types.d.ts';
+import Context from "../utils/context.ts";
+import {useValidHero} from "../hooks/customHooks.ts";
 
 const Header: React.FC = () => {
-    const {heroId = 'luke'} = useParams<{ heroId?: string }>();
-    const isHeroValid = Object.prototype.hasOwnProperty.call(characters, heroId);
-    const heroKey: HeroId = isHeroValid ? (heroId as HeroId) : 'luke';
+    const location = useLocation();
+    const {currentHeroId: contextHeroId} = useContext(Context);
+    const {heroId: urlHeroId} = useParams<{ heroId?: string }>();
 
-    const heroName = characters[heroKey].name;
+    const validUrlHeroId: HeroId = useValidHero(urlHeroId);
+
+    let heroName: string;
+
+    const knownPathPrefixes = ['/aboutme', '/starwars', '/contact'];
+    const isErrorPage = location.pathname !== '/' && !knownPathPrefixes.some(p => location.pathname.startsWith(p));
+
+    if (isErrorPage) {
+        heroName = "ERROR!";
+    } else if (location.pathname.includes('aboutme') && urlHeroId) {
+        heroName = characters[validUrlHeroId].name;
+    } else {
+        heroName = characters[contextHeroId].name;
+    }
 
     return (
         <header className="rounded-t-3xl bg-grey">

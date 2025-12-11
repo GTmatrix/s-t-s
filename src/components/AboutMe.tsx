@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useContext} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {characters, navItems, period_month} from "../utils/constants.ts";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 import {type HeroId, type HeroInfo} from "../utils/types.d.ts";
+import Context from "../utils/context.ts";
 interface LocalStorageHeroData {
     payload: HeroInfo;
     timestamp: number;
@@ -14,7 +15,10 @@ const AboutMe: React.FC = () => {
     const navigate = useNavigate();
     const {heroId: urlHeroId} = useParams<{ heroId?: string }>();
 
-    const heroKey: string = urlHeroId || 'luke';
+    const {currentHeroId: contextHeroId} = useContext(Context);
+
+    const heroKey: string = urlHeroId || contextHeroId;
+
     const isValidHeroKey = Object.prototype.hasOwnProperty.call(characters, heroKey);
     const validHeroId = isValidHeroKey ? (heroKey as HeroId) : 'luke';
 

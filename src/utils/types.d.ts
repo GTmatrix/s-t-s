@@ -45,4 +45,6 @@ export interface IContext {
     currentHeroId: HeroId;
     changePage: (target: string) => void;
     changeHero: (heroId: HeroId) => void;
+    friendsList: string[];
+    swapHeroAndFriend: (newHeroId: HeroId) => void;
 }
